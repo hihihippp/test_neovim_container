@@ -1,0 +1,38 @@
+version: "3.7"
+
+services:
+
+  base-stable:
+    image: ${REGISTRY}${REPO}:base-stable
+    build:
+      context: ./base
+      dockerfile: Dockerfile
+      args:
+        VERSION: "release-0.6"
+
+  base-nightly:
+    image: ${REGISTRY}${REPO}:base-nightly
+    build:
+      context: ./base
+      dockerfile: Dockerfile
+      args:
+        VERSION: "master"
+
+  stable-lua:
+    image: ${REGISTRY}${REPO}:stable-lua
+    build:
+      context: ./lua
+      dockerfile: Dockerfile
+      args:
+        TAG: "base-stable"
+        REGISTRY: ${REGISTRY}
+        REPO: ${REPO}
+
+  nightly-lua:
+    image: ${REGISTRY}${REPO}:nightly-lua
+    build:
+      context: ./lua
+      dockerfile: Dockerfile
+      args:
+        REGISTRY: ${REGISTRY}
+        REPO: ${REPO}
